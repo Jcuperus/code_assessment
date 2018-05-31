@@ -4,6 +4,7 @@ code_assessment/bin/
 code_assessment/include/
 code_assessment/pip-selfcheck.json
 code_assessment/share/
+feedback_app/tmp/
 
 # Created by https://www.gitignore.io/api/django,python,visualstudiocode
 
