@@ -1,3 +1,10 @@
+vendor/
+composer.lock
+code_assessment/bin/
+code_assessment/include/
+code_assessment/pip-selfcheck.json
+code_assessment/share/
+
 # Created by https://www.gitignore.io/api/django,python,visualstudiocode
 
 ### Django ###
