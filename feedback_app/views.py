@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse
 
 from .forms import CodeUploadForm
-from .assessment.utils import save_file, get_feedback
+from .assessment.helpers import save_file, get_feedback
 
 # Create your views here.
 def index(request):

@@ -1,6 +1,6 @@
 import subprocess
 import code_assessment.settings
-from .php_code_sniffer import PHPCodeSnifferWrapper
+from .wrappers import PHPCodeSnifferWrapper, PHPMessDetectorWrapper
 
 def save_file(file):
     tmp_file_path = code_assessment.settings.BASE_DIR + '/feedback_app/tmp/tmp.php'

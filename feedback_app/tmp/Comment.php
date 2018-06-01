@@ -1,13 +1,8 @@
 <?php
 
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Comment extends Model
-{
+class comment{
     public function user()
-    {
+  {
         return $this->belongsto(User::class);
     }
 
@@ -16,7 +11,7 @@ class Comment extends Model
         return $this->belongsTo(Blog::class);
     }
 
-    public function comments()
+    public function get_comments()
     {
         return $this->hasMany(Comment::class, 'parent_id');
     }
@@ -26,3 +21,5 @@ class Comment extends Model
         return $this->belongsTo(Comment::class, 'parent_id');
     }
 }
+
+?>
