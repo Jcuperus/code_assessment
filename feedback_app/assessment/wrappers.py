@@ -16,12 +16,18 @@ class PHPCodeSnifferWrapper(CliToolWrapper):
     def __init__(self):
         super(PHPCodeSnifferWrapper, self).__init__(code_assessment.settings.BASE_DIR + '/vendor/squizlabs/php_codesniffer/bin/phpcs')
 
-    def getAssessmentCommand(self, path, rules='PSR2', output_type='xml'):
+    def assess(self, path, rules='PSR2', output_type='xml'):
+        return super(PHPCodeSnifferWrapper, self).assess(path, rules, output_type)
+
+    def getAssessmentCommand(self, path, rules, output_type):
         return [self.cli_path, path, '--standard=' + rules, '--report=' + output_type]
 
 class PHPMessDetectorWrapper(CliToolWrapper):
     def __init__(self):
         super(PHPMessDetectorWrapper, self).__init__(code_assessment.settings.BASE_DIR + '/vendor/phpmd/phpmd/src/bin/phpmd')
 
-    def getAssessmentCommand(self, path, rules, output_type='xml'):
+    def assess(self, path, rules='cleancode, codesize, controversial, design, naming, unusedcode', output_type='xml'):
+        return super(PHPMessDetectorWrapper, self).assess(path, rules, output_type)
+
+    def getAssessmentCommand(self, path, rules, output_type):
         return [self.cli_path, path, output_type, rules]

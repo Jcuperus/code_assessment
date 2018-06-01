@@ -14,6 +14,6 @@ def save_file(file):
 def get_feedback(path):    
     phpcs = PHPCodeSnifferWrapper()
     phpmd = PHPMessDetectorWrapper()
-    feedback = phpcs.assess(path, 'PSR2', 'xml')
-    feedback += phpmd.assess(path, '', 'xml')
+    feedback = phpcs.assess(path)
+    feedback += phpmd.assess(path)
     return feedback
