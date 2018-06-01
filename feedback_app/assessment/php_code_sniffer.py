@@ -1,5 +1,3 @@
-import subprocess
-
 import code_assessment.settings
 from cli_tool_wrapper import CliToolWrapper
 
