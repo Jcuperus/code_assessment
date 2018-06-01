@@ -1,5 +1,5 @@
 import code_assessment.settings
-from cli_tool_wrapper import CliToolWrapper
+from .cli_tool_wrapper import CliToolWrapper
 
 class PHPCodeSnifferWrapper(CliToolWrapper):
     def __init__(self):
