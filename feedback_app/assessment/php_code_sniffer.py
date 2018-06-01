@@ -1,4 +1,4 @@
-import subprocesss
+import subprocess
 
 import code_assessment.settings
 
@@ -8,5 +8,5 @@ class PHPCodeSnifferWrapper(object):
 
     def assess(self, filepath):
         command = [self.cli_path, '--help']
-        output = subprocesss.run(command, stdout=subprocesss.PIPE)
+        output = subprocess.run(command, stdout=subprocess.PIPE)
         return output.stdout.decode('utf-8')
