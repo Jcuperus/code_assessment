@@ -8,12 +8,10 @@ class PHPMDWrapperTestCase(TestCase):
     def test_assess_returns_xml(self):
         phpmd = PHPMDWrapper()
         file_path = code_assessment.settings.BASE_DIR + '/feedback_app/tmp/test.php'
-        output_type = 'xml'
-        ruleset = 'codesize'
-        output = phpmd.assess(file_path, output_type, ruleset)
+        output = phpmd.assess(file_path, 'codesize')
 
         self.assertIsInstance(output, str)
-        self.assertIn('<?xml version="1.0" encoding="UTF-8" ?>', output)
+        self.assertIn('<?xml version="1.0" encoding="UTF-8"', output)
 
 class PHPCodeSnifferTestCase(TestCase):
     def test_assess_returns_data(self):
@@ -22,4 +20,5 @@ class PHPCodeSnifferTestCase(TestCase):
         output = phpcs.assess(file_path)
 
         self.assertIsInstance(output, str)
+        self.assertIn('<?xml version="1.0" encoding="UTF-8"', output)
         print(output)
