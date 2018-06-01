@@ -1,15 +1,17 @@
 import subprocess
 import code_assessment.settings
+from .php_code_sniffer import PHPCodeSnifferWrapper
 
-def assess_code(args):
-    assessment_tool_path = code_assessment.settings.BASE_DIR + '/vendor/phpmd/phpmd/src/bin/phpmd'
-    command = [assessment_tool_path] + args
-    command_output = subprocess.run(command, stdout=subprocess.PIPE)
-    return command_output.stdout.decode('utf-8')
+def save_file(file):
+    tmp_file_path = code_assessment.settings.BASE_DIR + '/feedback_app/tmp/tmp.php'
 
-def test():
-    file_path = code_assessment.settings.BASE_DIR + '/feedback_app/tmp/test.php'
-    output_type = 'xml'
-    rulesets = 'codesize,unusedcode,naming'
+    with open(tmp_file_path, 'wb+') as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
 
-    print(assess_code([file_path, output_type, rulesets]))
+    return tmp_file_path
+
+def get_feedback(path):
+    phpcs = PHPCodeSnifferWrapper()
+    feedback = phpcs.assess(path, 'PSR2', 'xml')
+    return feedback
