@@ -1,12 +1,11 @@
 import subprocess
 
 import code_assessment.settings
+from cli_tool_wrapper import CliToolWrapper
 
-class PHPMDWrapper(object):
+class PHPMDWrapper(CliToolWrapper):
     def __init__(self):
-        self.cli_path = code_assessment.settings.BASE_DIR + '/vendor/phpmd/phpmd/src/bin/phpmd'
+        super(PHPMDWrapper, self).__init__(code_assessment.settings.BASE_DIR + '/vendor/phpmd/phpmd/src/bin/phpmd')
 
-    def assess(self, filepath, rulesets, output_type='xml'):
-        command = [self.cli_path, filepath, output_type, rulesets]
-        output = subprocess.run(command, stdout=subprocess.PIPE)
-        return output.stdout.decode('utf-8')
+    def getAssessmentCommand(self, path, rules, output_type='xml'):
+        return [self.cli_path, path, output_type, rules]
