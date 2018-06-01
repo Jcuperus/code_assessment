@@ -11,6 +11,7 @@ class PHPMessDetectorWrapperTestCase(TestCase):
 
         self.assertIsInstance(output, str)
         self.assertIn('<?xml version="1.0" encoding="UTF-8"', output)
+        print(output)
 
 class PHPCodeSnifferTestCase(TestCase):
     def test_assess_returns_data(self):
@@ -20,3 +21,4 @@ class PHPCodeSnifferTestCase(TestCase):
 
         self.assertIsInstance(output, str)
         self.assertIn('<?xml version="1.0" encoding="UTF-8"', output)
+        print(output)

@@ -26,7 +26,7 @@ class PHPMessDetectorWrapper(CliToolWrapper):
     def __init__(self):
         super(PHPMessDetectorWrapper, self).__init__(code_assessment.settings.BASE_DIR + '/vendor/phpmd/phpmd/src/bin/phpmd')
 
-    def assess(self, path, rules='cleancode, codesize, controversial, design, naming, unusedcode', output_type='xml'):
+    def assess(self, path, rules='cleancode,codesize,controversial,design,naming,unusedcode', output_type='xml'):
         return super(PHPMessDetectorWrapper, self).assess(path, rules, output_type)
 
     def getAssessmentCommand(self, path, rules, output_type):
