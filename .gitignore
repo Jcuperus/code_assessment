@@ -1,5 +1,9 @@
+### General ###
 vendor/
 composer.lock
+feedback_app/tmp/
+
+### Virtual Environment ###
 code_assessment/bin/
 code_assessment/include/
 code_assessment/pip-selfcheck.json
