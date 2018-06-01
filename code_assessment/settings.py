@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'code_assessment.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'code_assessment.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'gorilla',
+        'USER': 'gorilla',
+        'PASSWORD': 'codemonkey',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
