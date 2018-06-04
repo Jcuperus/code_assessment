@@ -1,11 +1,12 @@
 {% for assessment in assessments %}
 <div>
-    {% for source_file in assessment.sourcefile_set.all() %}
-    <ul>
-        {% for error in assessment.error_set.all() %}
-        <li>{{ error.text }}</li>
-        {% endfor %}
-    </ul>
-    {% endfor %}
+	{% for source_file in assessment.sourcefile_set.all %}
+	<h2>{{ source_file.name }}</h2>
+	<ul>
+		{% for error in source_file.error_set.all %}
+		<li>Error: {{ error.text }}</li>
+		{% endfor %}
+	</ul>
+	{% endfor %}
 </div>
 {% endfor %}

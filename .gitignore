@@ -1,6 +1,7 @@
 ### General ###
 vendor/
 composer.lock
+feedback_app/tmp/tmp.php
 
 ### Virtual Environment ###
 code_assessment/bin/
