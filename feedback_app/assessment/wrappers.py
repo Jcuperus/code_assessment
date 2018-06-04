@@ -30,7 +30,8 @@ class PHPCodeSnifferWrapper(CliToolWrapper):
     def parseCommandOutput(self, output):
         xml = ElementTree.fromstring(output)
 
-        print(xml)
+        for root_element in xml.getchildren():
+            print(root_element)
 
         return output
 
