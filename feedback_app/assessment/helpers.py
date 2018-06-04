@@ -11,9 +11,11 @@ def save_file(file):
 
     return tmp_file_path
 
-def get_feedback(path):    
-    phpcs = PHPCodeSnifferWrapper()
-    phpmd = PHPMessDetectorWrapper()
-    feedback = phpcs.assess(path)
-    feedback += phpmd.assess(path)
-    return feedback
+def get_assessments(path):    
+    testing_engines = [PHPCodeSnifferWrapper(), PHPMessDetectorWrapper()]
+    assessments = []
+
+    for engine in testing_engines:
+        assessments.append(engine.assess(path))
+
+    return assessments

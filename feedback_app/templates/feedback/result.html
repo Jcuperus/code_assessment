@@ -1,1 +1,11 @@
-{{ feedback }}
+{% for assessment in assessments %}
+<div>
+    {% for source_file in assessment.sourcefile_set.all() %}
+    <ul>
+        {% for error in assessment.error_set.all() %}
+        <li>{{ error.text }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</div>
+{% endfor %}
