@@ -4,13 +4,14 @@ from django.db import models
 class Assessment(models.Model):
     date = models.DateTimeField(auto_now=True)
 
-class File(models.Model):
+class SourceFile(models.Model):
     assessment = models.ForeignKey(Assessment, on_delete=models.CASCADE)
-    name = models.CharField()
+    name = models.CharField(max_length=255)
 
 class Error(models.Model):
-    File = models.ForeignKey(Assessment, on_delete=models.CASCADE)
-    line = models.IntegerField()
+    source_file = models.ForeignKey(SourceFile, on_delete=models.CASCADE)
+    begin_line = models.IntegerField()
+    end_line = models.IntegerField()
     priority = models.IntegerField()
-    category = models.CharField()
-    text = models.TextField()
+    category = models.CharField(max_length=255)
+    text = models.CharField(max_length=255)

@@ -2,6 +2,7 @@ import subprocess
 from xml.etree import ElementTree
 
 import code_assessment.settings
+from feedback_app.models import Assessment, SourceFile, Error
 
 class CliToolWrapper(object):
     def __init__(self, cli_path):
@@ -9,7 +10,7 @@ class CliToolWrapper(object):
 
     def assess(self, path, rules, output_type):
         output = subprocess.run(self.getAssessmentCommand(path, rules, output_type), stdout=subprocess.PIPE)
-        return self.parseCommandOutput(output.stdout.decode('utf-8'))
+        return output.stdout.decode('utf-8')
 
     def getAssessmentCommand(self, path, rules, output_type):
         raise NotImplementedError
@@ -28,12 +29,26 @@ class PHPCodeSnifferWrapper(CliToolWrapper):
         return [self.cli_path, path, '--standard=' + rules, '--report=' + output_type]
 
     def parseCommandOutput(self, output):
-        xml = ElementTree.fromstring(output)
+        root = ElementTree.fromstring(output)
 
-        for root_element in xml.getchildren():
-            print(root_element)
-
-        return output
+        if root.find('file') != None:
+            assessment = Assessment()
+            assessment.save()
+            
+            for file_node in root.findall('file'):
+                source_file = SourceFile(assessment = assessment, name = file_node.get('name'))
+                source_file.save()
+                
+                for error_node in file_node.findall('error'):
+                    error = Error(source_file = source_file, 
+                            begin_line = error_node.get('line'),
+                            end_line = error_node.get('line'),
+                            priority = error_node.get('severity'), 
+                            category = error_node.get('source'), 
+                            text = error_node.text)
+                    error.save()
+            return assessment
+        return None
 
 class PHPMessDetectorWrapper(CliToolWrapper):
     def __init__(self):
@@ -46,4 +61,23 @@ class PHPMessDetectorWrapper(CliToolWrapper):
         return [self.cli_path, path, output_type, rules]
 
     def parseCommandOutput(self, output):
-        return output
+        root = ElementTree.fromstring(output)
+
+        if root.find('file') != None:
+            assessment = Assessment()
+            assessment.save()
+
+            for file_node in root.findall('file'):
+                source_file = SourceFile(assessment = assessment, name = file_node.get('name'))
+                source_file.save()
+
+                for error_node in file_node.findall('violation'):
+                    error = Error(source_file = source_file,
+                            begin_line = error_node.get('beginline'),
+                            end_line = error_node.get('endline'),
+                            priority = error_node.get('priority'),
+                            category = error_node.get('rule'),
+                            text = error_node.text)
+                    error.save()
+            return assessment
+        return None
