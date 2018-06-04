@@ -9,6 +9,9 @@ class CliToolWrapper(object):
         self.cli_path = cli_path
 
     def assess(self, path, rules, output_type):
+        return self.parseCommandOutput(self.assessRaw(path, rules, output_type))
+
+    def assessRaw(self, path, rules, output_type):
         output = subprocess.run(self.getAssessmentCommand(path, rules, output_type), stdout=subprocess.PIPE)
         return output.stdout.decode('utf-8')
 
@@ -24,6 +27,9 @@ class PHPCodeSnifferWrapper(CliToolWrapper):
 
     def assess(self, path, rules='PSR2', output_type='xml'):
         return super(PHPCodeSnifferWrapper, self).assess(path, rules, output_type)
+
+    def assessRaw(self, path, rules='PSR2', output_type='xml'):
+        return super(PHPCodeSnifferWrapper, self).assessRaw(path, rules, output_type)
 
     def getAssessmentCommand(self, path, rules, output_type):
         return [self.cli_path, path, '--standard=' + rules, '--report=' + output_type]
@@ -56,6 +62,9 @@ class PHPMessDetectorWrapper(CliToolWrapper):
 
     def assess(self, path, rules='cleancode,codesize,controversial,design,naming,unusedcode', output_type='xml'):
         return super(PHPMessDetectorWrapper, self).assess(path, rules, output_type)
+
+    def assessRaw(self, path, rules='cleancode,codesize,controversial,design,naming,unusedcode', output_type='xml'):
+        return super(PHPMessDetectorWrapper, self).assessRaw(path, rules, output_type)
 
     def getAssessmentCommand(self, path, rules, output_type):
         return [self.cli_path, path, output_type, rules]
