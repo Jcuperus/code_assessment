@@ -4,10 +4,7 @@ composer.lock
 feedback_app/tmp/tmp.php
 
 ### Virtual Environment ###
-code_assessment/bin/
-code_assessment/include/
-code_assessment/pip-selfcheck.json
-code_assessment/share/
+code_assessment_env/
 
 # Created by https://www.gitignore.io/api/django,python,visualstudiocode
 
