@@ -1,15 +1,20 @@
 import subprocess
-import code_assessment.settings
+from django.core.files.storage import default_storage
+from django.core.files import File 
+
+from code_assessment.settings import MEDIA_ROOT
 from .wrappers import PHPCodeSnifferWrapper, PHPMessDetectorWrapper
 
 def save_file(file):
-    tmp_file_path = code_assessment.settings.BASE_DIR + '/storage/tmp/tmp.php'
+    file_path = 'tmp/tmp.php'
 
-    with open(tmp_file_path, 'wb+') as destination:
-        for chunk in file.chunks():
-            destination.write(chunk)
+    default_storage.save(file_path, file)
 
-    return tmp_file_path
+    # with File(default_storage.open(file_path)) as destination:
+        # for chunk in file.chunks():
+            # destination.write(chunk)
+
+    return MEDIA_ROOT + file_path
 
 def get_assessments(path):    
     testing_engines = [PHPCodeSnifferWrapper(), PHPMessDetectorWrapper()]
