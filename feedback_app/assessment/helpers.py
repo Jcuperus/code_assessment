@@ -7,7 +7,7 @@ from .wrappers import PHPCodeSnifferWrapper, PHPMessDetectorWrapper
 def save_file(file):
     file_path = 'tmp/tmp.php'
 
-    with default_storage.open(file_path, 'w') as destination:
+    with default_storage.open(file_path, 'wb') as destination:
         for chunk in file.chunks():
             destination.write(chunk)
 

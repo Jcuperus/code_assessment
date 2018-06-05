@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, get_list_or_404, redirect
+from django.shortcuts import render, reverse, get_list_or_404, get_object_or_404, redirect
 from django.http import HttpResponse
 
 from .forms import CodeUploadForm
@@ -28,4 +28,5 @@ def assessments(request):
     return render(request, 'assessments/index.html', {'assessments': assessments })
 
 def assessment_detail(request, assessment_id):
-    return render(request, 'assessments/detail.html')
+    assessment = get_object_or_404(Assessment, id=assessment_id)
+    return render(request, 'assessments/detail.html', {'assessment': assessment})

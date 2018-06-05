@@ -1,5 +1,5 @@
 <ul>
 {% for assessment in assessments %}
-    <li><a href="{% url 'feedback:assessment_detail' assessment_id=assessment.id">Assessment {{ assessment.date }}</a></li>
+    <li><a href="{% url 'feedback:assessment_detail' assessment_id=assessment.id %}">Assessment {{ assessment.date }}</a></li>
 {% endfor %}
 </ul>
