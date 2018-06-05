@@ -1,0 +1,11 @@
+
+{% for source_file in assessment.sourcefile_set.all %}
+<h2>{{ source_file.name }}</h2>
+<ul>
+    {% for error in source_file.error_set.all %}
+    <li>Error: {{ error.text }}</li>
+    {% endfor %}
+</ul>
+{% endfor %}
+<br>
+<a href="{% url 'feedback:assessments' %}"></a>

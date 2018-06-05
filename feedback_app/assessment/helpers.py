@@ -3,7 +3,7 @@ import code_assessment.settings
 from .wrappers import PHPCodeSnifferWrapper, PHPMessDetectorWrapper
 
 def save_file(file):
-    tmp_file_path = code_assessment.settings.BASE_DIR + '/feedback_app/tmp/tmp.php'
+    tmp_file_path = code_assessment.settings.BASE_DIR + '/storage/tmp/tmp.php'
 
     with open(tmp_file_path, 'wb+') as destination:
         for chunk in file.chunks():
