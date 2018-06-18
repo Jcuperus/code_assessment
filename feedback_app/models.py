@@ -14,4 +14,5 @@ class Error(models.Model):
     end_line = models.IntegerField()
     priority = models.IntegerField()
     category = models.CharField(max_length=255)
+    source = models.CharField(max_length=255)
     text = models.CharField(max_length=255)

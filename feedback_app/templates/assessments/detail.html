@@ -3,7 +3,7 @@
 <h2>{{ source_file.name }}</h2>
 <ul>
     {% for error in source_file.error_set.all %}
-    <li>Error: {{ error.text }}</li>
+    <li>Error ({{ error.source }}): {{ error.text }}</li>
     {% endfor %}
 </ul>
 {% endfor %}
