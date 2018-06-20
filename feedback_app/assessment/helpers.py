@@ -3,6 +3,7 @@ from django.core.files.storage import default_storage
 
 from code_assessment.settings import MEDIA_ROOT
 from .wrappers import PHPCodeSnifferWrapper, PHPMessDetectorWrapper
+from .wrappers import CliToolWrapper
 from feedback_app.models import Assessment, SourceFile
 
 def save_file(file):
@@ -41,7 +42,7 @@ def assess(files):
     Returns:
         Assessment -- Assessment object containing all files and their respective errors
     """
-    testing_tools = [PHPMessDetectorWrapper(), PHPCodeSnifferWrapper()]
+    testing_tools = [CliToolWrapper.factory('phpcs'), CliToolWrapper.factory('phpmd')]
     assessment = Assessment.objects.create()
 
     for file in files:

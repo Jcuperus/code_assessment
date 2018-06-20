@@ -1,10 +1,22 @@
 from xml.etree import ElementTree
 from django.test import TestCase, TransactionTestCase, tag
 from code_assessment.settings import BASE_DIR
-from feedback_app.assessment.wrappers import PHPMessDetectorWrapper, PHPCodeSnifferWrapper
+from feedback_app.assessment.wrappers import CliToolWrapper, PHPMessDetectorWrapper, PHPCodeSnifferWrapper
 from feedback_app.models import Assessment, SourceFile, Error
 
 TEST_FILE_PATH = BASE_DIR + '/feedback_app/tmp/test.php'
+
+@tag('wrappers', 'assessment')
+class CliToolWrapperTestCase(TestCase):
+    def test_factory_creates_all_children(self):
+        clitools = CliToolWrapper.__subclasses__()
+
+        phpcs = CliToolWrapper.factory('phpcs')
+        self.assertIsInstance(phpcs, PHPCodeSnifferWrapper)
+
+        phpmd = CliToolWrapper.factory('phpmd')
+        self.assertIsInstance(phpmd, PHPMessDetectorWrapper)
+
 
 @tag('phpmd', 'wrappers', 'assessment')
 class PHPMessDetectorWrapperTestCase(TestCase):

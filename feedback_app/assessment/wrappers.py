@@ -18,6 +18,22 @@ class CliToolWrapper(object):
         self.rules = rules
         self.output_type = output_type
 
+    @staticmethod
+    def factory(name):
+        """CliToolWrapper factory method, allows for easy creation of child classes
+        
+        Arguments:
+            name {str} -- Child class name
+        
+        Returns:
+            CliToolWrapper -- wrapper instance object
+        """
+
+        if name == 'phpcs' or name == 'PHPCodeSnifferWrapper':
+            return PHPCodeSnifferWrapper()
+        elif name == 'phpmd' or name == 'PHPMessDetectorWrapper':
+            return PHPMessDetectorWrapper()
+
     def assess(self, file):
         """Returns a parsed representation the provided files' assessment
         
