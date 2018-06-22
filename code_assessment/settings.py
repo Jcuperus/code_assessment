@@ -25,7 +25,7 @@ SECRET_KEY = 'l^q6b6&1q0#v_jt5&bbsye8oes4vw7-6@)kf*j#_cq#!o_bjiz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.8.115', '192.168.178.117']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.8.122']
 
 
 # Application definition
@@ -128,4 +128,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-ASSESSMENT_FILES_ROOT = os.path.join(MEDIA_ROOT, 'assessments/')
+FILE_UPLOAD_HANDLERS = ['django.core.files.uploadhandler.TemporaryFileUploadHandler']

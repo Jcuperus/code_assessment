@@ -1,22 +1,20 @@
 from django.shortcuts import render, reverse, get_list_or_404, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse
+from django.utils import timezone
+from django.core.files.uploadedfile import TemporaryUploadedFile
+from django.core.files.uploadhandler import TemporaryFileUploadHandler
 
 from .forms import CodeUploadForm
 from .models import Assessment
-from .assessment.helpers import save_file, assess
+from .assessment.helpers import assess, get_tmp_file_paths
 
 # Create your views here.
 def index(request):
     if request.method == 'POST':
         form = CodeUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            tmp_file_paths = []
-            for code_file in request.FILES.getlist('code_files'):
-                path = save_file(code_file)
-                tmp_file_paths.append(path)
-
+            tmp_file_paths = get_tmp_file_paths(request.FILES.getlist('code_files'))
             assessment = assess(tmp_file_paths)
-            # TODO: delete/store files
             return HttpResponseRedirect(reverse('feedback:assessment_detail', kwargs={'assessment_id': assessment.id}))
     else:
         form = CodeUploadForm()

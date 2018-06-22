@@ -1,37 +1,23 @@
 import subprocess
-from django.core.files.storage import default_storage
+from django.core.files.uploadedfile import TemporaryUploadedFile
 
-from code_assessment.settings import MEDIA_ROOT
-from .wrappers import PHPCodeSnifferWrapper, PHPMessDetectorWrapper
 from .wrappers import CliToolWrapper
-from feedback_app.models import Assessment, SourceFile
+from feedback_app.models import Assessment, SourceFile     
 
-def save_file(file):
-    """Saves a given file to the temporary file storage location. Returns file path
+def get_tmp_file_paths(files):
+    """Returns a list of paths to temporarily stored files
     
     Arguments:
-        file {InputFile} -- Request file object
+        files {TemporaryUploadFile} -- List containing uploaded files
     
     Returns:
-        str -- Temporary file storage location
+        List<str> -- List of paths to given files
     """
-
-    file_path = 'tmp/tmp.php'
-
-    with default_storage.open(file_path, 'wb') as destination:
-        for chunk in file.chunks():
-            destination.write(chunk)
-
-    return MEDIA_ROOT + file_path
-
-def get_assessments(path):    
-    testing_engines = [PHPCodeSnifferWrapper(), PHPMessDetectorWrapper()]
-    assessments = []
-
-    for engine in testing_engines:
-        assessments.append(engine.assess(path))
-
-    return assessments
+    tmp_file_paths = []
+    for file in files:
+        if isinstance(file, TemporaryUploadedFile):
+            tmp_file_paths.append(file.temporary_file_path())
+    return tmp_file_paths
 
 def assess(files):
     """Runs an assessment for all provided files for all relevant testing tools
