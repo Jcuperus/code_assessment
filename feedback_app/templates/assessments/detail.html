@@ -1,10 +1,30 @@
 
 {% for source_file in assessment.sourcefile_set.all %}
 <h2>{{ source_file.name }}</h2>
-<ul>
-    {% for error in source_file.error_set.all %}
-    <li>Error ({{ error.source }}): {{ error.text }}</li>
-    {% endfor %}
+<table>
+    <thead>
+        <tr>
+            <th>Text</th>
+            <th>Priority</th>
+            <th>Begin line</th>
+            <th>End line</th>
+            <th>Source</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for error in source_file.error_set.all %}
+        <tr>
+            <td>{{ error.text }}</td>
+            <td>{{ error.priority }}</td>
+            <td>{{ error.begin_line }}</td>
+            <td>{{ error.end_line }}</td>
+            <td>{{ error.category }}</td>
+            <td>{{ error.source }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 </ul>
 {% endfor %}
 <br>

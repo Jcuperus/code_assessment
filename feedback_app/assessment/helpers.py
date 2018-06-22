@@ -8,7 +8,7 @@ def get_tmp_file_paths(files):
     """Returns a list of paths to temporarily stored files
     
     Arguments:
-        files {TemporaryUploadFile} -- List containing uploaded files
+        files {List<TemporaryUploadFile>} -- List containing uploaded files
     
     Returns:
         List<str> -- List of paths to given files
